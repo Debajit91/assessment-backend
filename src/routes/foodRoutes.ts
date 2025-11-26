@@ -33,7 +33,7 @@ router.post("/", async (req: Request, res: Response) => {
   }
 });
 
-// (optional) GET /api/foods → later best seller grid e use korbo
+
 router.get("/", async (_req: Request, res: Response) => {
   try {
     const foods = await Food.find().sort({ createdAt: -1 });
