@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
         const food = await Food_1.Food.create({
             name: name.trim(),
             category: category.trim(),
-            imageUrl: (imageUrl === null || imageUrl === void 0 ? void 0 : imageUrl.trim()) || undefined,
+            imageUrl: imageUrl?.trim() || undefined,
         });
         return res.status(201).json(food);
     }

@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
+    "target": "ES2020",
     "module": "CommonJS",
     "moduleResolution": "node",
-    "rootDir": "src",
-    "outDir": "dist",
+    "lib": ["ES2020"],
+    "allowJs": false,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
     "skipLibCheck": true,
-    "types": ["node"],
-    "lib": ["ES2019"]
+    "strict": false,
+    "types": ["node", "express"],
+    "rootDir": "./src",
+    "outDir": "./dist"
   },
   "include": ["src/**/*"]
 }
