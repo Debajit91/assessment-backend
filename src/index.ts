@@ -6,43 +6,35 @@ import categoryRoutes from "./routes/categoryRoutes";
 import foodRoutes from "./routes/foodRoutes";
 
 
+import type { Request as ExpressRequest, Response as ExpressResponse } from "express";
+
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-const PORT = process.env.PORT;
-const MONGO_URI = process.env.MONGO_URI;
-
-if (!MONGO_URI) {
-  throw new Error("MONGO_URI is not defined in .env");
-}
-
-// Middlewares
 app.use(
   cors({
-    origin: "http://localhost:3000", // your Next.js app
+    origin: "*",
   })
 );
 app.use(express.json());
 
-// Routes
-app.use("/api/categories", categoryRoutes);
-app.use("/api/categories", categoryRoutes);
-app.use("/api/foods", foodRoutes); 
 
-
-// Health check
-app.get("/", (_req, res) => {
+app.get("/", (_req: ExpressRequest, res: ExpressResponse) => {
   res.send("API is running");
 });
 
-// Start server
-async function start() {
-  await connectDB(MONGO_URI as string);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/foods", foodRoutes);
 
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Failed to connect MongoDB", err);
+    process.exit(1);
   });
-}
-
-start();
