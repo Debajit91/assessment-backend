@@ -38,3 +38,5 @@ connectDB()
     console.error("Failed to connect MongoDB", err);
     process.exit(1);
   });
+
+  export default app;
